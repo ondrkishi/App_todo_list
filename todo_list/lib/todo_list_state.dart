@@ -12,7 +12,7 @@ class ToDoListState extends StateNotifier<List<ToDoRecord>> {
   }
 
   Future<void> add(ToDo todo) async {
-    // 登録後の新しいレコードを取得します
+    // 登録後の新しいレコードを取得する
     final record = await dbHelper.add(todo);
     state = state.sublist(0)..insert(0, record);
   }
@@ -23,12 +23,12 @@ class ToDoListState extends StateNotifier<List<ToDoRecord>> {
   }
 
   Future<void> toggle(ToDoRecord record) async {
-    // 現在のarchivedを反転します
+    // 現在のarchivedを反転する
     final updateRecord = record.copyWith.value(
       archived: !record.value.archived,
     );
 
-    // ToDoを更新します
+    // ToDoを更新
     await dbHelper.update(
       updateRecord.key,
       updateRecord.value,
@@ -38,12 +38,12 @@ class ToDoListState extends StateNotifier<List<ToDoRecord>> {
   }
 
   void _replaceRecord(ToDoRecord record) {
-    // 配列の同じToDoを入れ替えます
+    // 配列の同じToDoを入れ替える
     final findIndex = state.indexWhere(
       (e) => e.key == record.key,
     );
 
-    // 新しいリストで更新します
+    // 新しいリストで更新
     state = List.from(state)
       ..replaceRange(
         findIndex,
